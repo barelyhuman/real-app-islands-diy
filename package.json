@@ -6,6 +6,7 @@
     "prebuild": "rimraf dist",
     "build": "cross-env NODE_ENV=production node build.mjs",
     "dev": "node build.mjs; concurrently 'yarn:dev:* -- --watch'",
+    "start": "node dist/server.js",
     "dev:nodemon": "nodemon --watch src --watch src/public --watch dist --ext js dist/server.js",
     "dev:bundle": "node build.mjs -w",
     "db:migrate": "npx knex migrate:latest",
