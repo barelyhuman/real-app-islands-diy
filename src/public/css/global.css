@@ -1,5 +1,4 @@
-@import url("https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css");
-
+@import url('https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css');
 
 html {
   font-family: sans-serif;
@@ -9,16 +8,16 @@ html {
   box-sizing: border-box;
 }
 
-.toast{
+.toast {
   max-width: 250px;
 }
 
-.error-toast{
+.error-toast {
   background: var(--del-color) !important;
   box-shadow: none;
 }
 
-.success-toast{
+.success-toast {
   background: var(--primary) !important;
   box-shadow: none;
 }
