@@ -1,0 +1,43 @@
+{
+  "name": "preact-islands-real-world",
+  "version": "1.0.0",
+  "license": "MIT",
+  "scripts": {
+    "prebuild": "rimraf dist",
+    "build": "cross-env NODE_ENV=production node build.mjs",
+    "dev": "node build.mjs; concurrently 'yarn:dev:* -- --watch'",
+    "dev:nodemon": "nodemon --watch src --watch src/public --watch dist --ext js dist/server.js",
+    "dev:bundle": "node build.mjs -w",
+    "db:migrate": "npx knex migrate:latest",
+    "db:rollback": "npx knex migrate:rollback",
+    "fix": "prettier --write ."
+  },
+  "prettier": "@barelyhuman/prettier-config",
+  "dependencies": {
+    "body-parser": "^1.20.1",
+    "cookie-parser": "^1.4.6",
+    "express": "^4.18.2",
+    "goober": "^2.1.12",
+    "preact": "^10.12.1",
+    "preact-render-to-string": "^5.2.6"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.20.12",
+    "@babel/generator": "^7.20.14",
+    "@babel/parser": "^7.20.15",
+    "@babel/plugin-transform-react-jsx": "^7.20.13",
+    "@barelyhuman/prettier-config": "^1.1.0",
+    "bcrypt": "^5.1.0",
+    "better-sqlite3": "^8.1.0",
+    "concurrently": "^7.6.0",
+    "cross-env": "^7.0.3",
+    "esbuild": "^0.17.8",
+    "esbuild-node-externals": "^1.6.0",
+    "knex": "^2.4.2",
+    "nodemon": "^2.0.20",
+    "prettier": "^2.8.4",
+    "rimraf": "^4.1.2",
+    "tiny-glob": "^0.2.9",
+    "watcher": "^2.2.2"
+  }
+}
