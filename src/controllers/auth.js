@@ -3,6 +3,7 @@ import LoginPage from '../pages/LoginPage'
 import { hashSync, genSaltSync, compare } from 'bcrypt'
 import SignupPage from '../pages/SignupPage'
 import crypto from 'crypto'
+import qs from 'querystring'
 
 export async function signup(req, res) {
   let trx
@@ -44,9 +45,10 @@ export async function login(req, res) {
       .first()
 
     if (!userDetails) {
-      return res.redirect(
-        "/login?error=User doesn't exist, please signup first"
-      )
+      const q = qs.stringify({
+        errors: ["User doesn't exist, please signup first"],
+      })
+      return res.redirect(`/login?${q}`)
     }
 
     const isValid = compare(req.body.password, userDetails.password)
@@ -68,6 +70,9 @@ export async function login(req, res) {
 
     // in a real life you'd also update the session for the user in cookies
     // we're using query strings here for simple stuff instead
+    if (req.body.redir) {
+      return res.redirect(req.body.redir)
+    }
     return res.redirect(`/?alert=Logged In`)
   } catch (err) {
     console.error(err)
@@ -75,6 +80,11 @@ export async function login(req, res) {
       message: 'Oops! Something went wrong',
     })
   }
+}
+
+export async function logout(req, res) {
+  res.clearCookie('auth')
+  res.redirect('/?alert=Logged Out!')
 }
 
 export async function fetchMe(req, res) {

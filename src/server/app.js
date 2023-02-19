@@ -4,8 +4,9 @@ import bodyParser from 'body-parser'
 import cookieParser from 'cookie-parser'
 import { withRender } from './middleware/render.js'
 import setupRouter from './routes.js'
+import { prefix } from 'goober/prefixer'
 
-setup(h)
+setup(h, prefix)
 
 const express = require('express')
 export const app = express()

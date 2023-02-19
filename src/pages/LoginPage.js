@@ -1,7 +1,7 @@
 import Alert from '../components/Alert.island.js'
 import BaseLayout from '../layouts/BaseLayout.js'
 
-export default function LoginPage({ error }) {
+export default function LoginPage({ errors = [], redir }) {
   return (
     <>
       <BaseLayout>
@@ -12,9 +12,12 @@ export default function LoginPage({ error }) {
           </div>
         </section>
 
-        {error && <Alert class="danger">{error}</Alert>}
+        {errors.map(error => (
+          <Alert type="error">{error}</Alert>
+        ))}
 
         <form action="/login" method="POST">
+          <input type="hidden" name="redir" value={redir} />
           <div>
             <label>Email</label>
             <input name="email" />

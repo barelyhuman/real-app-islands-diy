@@ -1,7 +1,24 @@
+@import url("https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css");
+
+
 html {
   font-family: sans-serif;
 }
 
 * {
   box-sizing: border-box;
+}
+
+.toast{
+  max-width: 250px;
+}
+
+.error-toast{
+  background: var(--del-color) !important;
+  box-shadow: none;
+}
+
+.success-toast{
+  background: var(--primary) !important;
+  box-shadow: none;
 }

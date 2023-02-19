@@ -1,16 +1,25 @@
 import express from 'express'
-import { fetchMe, login, signup } from '../controllers/auth'
+import { fetchMe, login, logout, signup } from '../controllers/auth'
+import { createPost, viewPosts } from '../controllers/post'
 import HomePage from '../pages/HomePage'
 import LoginPage from '../pages/LoginPage'
+import NewPostPage from '../pages/NewPostPage'
 import SignupPage from '../pages/SignupPage'
+import { withAuth } from './middleware/auth'
 
 export default function setupRouter(app) {
   const router = new express.Router()
-  router.get('/', async (req, res) => {
-    return res.render(HomePage, {
-      ...req.query,
-    })
-  })
+
+  setupApp(router)
+  setupREST(router)
+
+  return router
+}
+
+function setupApp(router) {
+  router.get('/', viewPosts)
+
+  router.route('/logout').get(logout)
 
   router
     .route('/login')
@@ -19,6 +28,7 @@ export default function setupRouter(app) {
         LoginPage,
         {
           ...req.query,
+          errors: [].concat(req.query.errors),
         },
         { title: 'Login' }
       )
@@ -32,7 +42,21 @@ export default function setupRouter(app) {
     })
     .post(signup)
 
-  router.get('/api/me', fetchMe)
+  router
+    .route('/new')
+    .get(withAuth, async (req, res) => {
+      return res.render(
+        NewPostPage,
+        {
+          ...req.query,
+          errors: [].concat(req.query.errors),
+        },
+        { title: 'New Post' }
+      )
+    })
+    .post(withAuth, createPost)
+}
 
-  return router
+function setupREST(router) {
+  router.get('/api/me', fetchMe)
 }

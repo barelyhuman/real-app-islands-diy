@@ -1,38 +1,24 @@
-import { setup, styled } from 'goober'
-import { h } from 'preact'
-import { useEffect, useState } from 'preact/hooks'
+import Toastify from 'toastify-js'
 import { onClientOnly } from '../lib/client'
 
-onClientOnly(() => setup(h))
+export default function Alert({ children, type, ...props }) {
+  onClientOnly(() => {
+    let toastClass = 'success-toast'
+    if (type === 'error') {
+      toastClass = 'error-toast'
+    }
+    if (!children) {
+      return
+    }
+    Toastify({
+      text: children,
+      duration: 3000,
+      gravity: 'top',
+      position: 'right',
+      stopOnFocus: true,
+      className: ['toast', toastClass].join(' '),
+    }).showToast()
+  })
 
-const AlertWrapper = styled(`p`)`
-  color: white;
-  padding: 16px;
-  border-radius: 6px;
-  background: var(--primary);
-
-  &.danger {
-    background: var(--del-color);
-  }
-`
-
-export default function Alert({ children, ...props }) {
-  const [show, setShow] = useState(true)
-
-  useEffect(() => {
-    const id = setTimeout(() => {
-      setShow(false)
-    }, 3000)
-    return () => clearTimeout(id)
-  }, [])
-
-  if (!show) {
-    return <></>
-  }
-
-  return (
-    <AlertWrapper className={props.class}>
-      <small>{children}</small>
-    </AlertWrapper>
-  )
+  return <></>
 }

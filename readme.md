@@ -8,4 +8,7 @@ A simple real worlds CRUD app with
 - [x] Simple Opaque Token Auth
 - [x] Auth Pages
 - [x] Show how an island would be used
+- [x] Toast Notifications
+- [x] Create Posts
+- [ ] CSRF and Security
 - [ ] Explain the codebase
